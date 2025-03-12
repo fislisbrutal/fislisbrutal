@@ -1,9 +1,4 @@
 ## Hi there 👋
 
-<!--
-[vet clinic database](https://github.com/user-attachments/assets/17ed4a6d-1225-4564-b227-49ccb3c912fc)
 
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+[vet clinic database](https://github.com/user-attachments/assets/17ed4a6d-1225-4564-b227-49ccb3c912fc)
