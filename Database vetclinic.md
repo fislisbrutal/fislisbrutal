@@ -12,7 +12,8 @@
 
 > Database Vetclinic - schema public
 
-![alt text](image-2.png)
+![image-1](https://github.com/user-attachments/assets/56be5670-5a50-49f3-b1df-d6b45ddaa84a)
+
 
 <h2 id="2">Связи между таблицами</h2>
 
