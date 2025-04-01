@@ -256,7 +256,6 @@ https://dbdiagram.io/d/Vetclinic-67e2eb4175d75cc8446e8015
 | `treatment`      | `appointment_id`, `service_id`   | B-tree            | ``` CREATE INDEX idx_treatment_app_service ON treatment(appointment_id, service_id); ```| Поиск услуг в рамках приема                                              |
 | `invoice`        | `pet_owner_id`, `date`           | B-tree            | ``` CREATE INDEX idx_invoice_owner_date ON invoice(pet_owner_id, date); ```| История платежей владельца                                               |
 | `invoice`        | `status_id`, `date`              | B-tree            | ``` CREATE INDEX idx_invoice_status_date ON invoice(status_id, date); ``` | Поиск счетов по статусу и дате                                           |
-
 | `service`        | `name`, `is_active`              | B-tree            | ``` CREATE INDEX idx_service_active_name ON service(name) WHERE is_active = true; ```| Поиск только активных услуг                                              |
 
  **Для текстовых поисков**
