@@ -1,4 +1,4 @@
-# Обновленная база данных Ветеринарная клиника (Vetclinic)
+# База данных Ветеринарная клиника (Vetclinic)
 
 > ***Дисклеймер*** - является учебным проектом по проектированию БД 
 
@@ -8,13 +8,13 @@
 3. [Описание параметров по таблицам](#3)
 4. [Примеры бизнес-задач](#4)
 5. [Рекомендации к репликации и резервному копированию](#5)
-6. [Ограничения и индексы](#6)
+6. [Оптимизация базы данных: индексы для поиска](#6)
 
 <h2 id="1">ER-диаграмма</h2>
 
 > Database Vetclinic - schema public
 
-![Vetclinic-3](https://github.com/user-attachments/assets/3becba5f-c197-46d3-825d-5b6fcaec0072)
+![Vetclinic-2](https://github.com/user-attachments/assets/1c32da6b-a129-4915-a1a0-e0a52fad9016)
 
 https://dbdiagram.io/d/Vetclinic-67e2eb4175d75cc8446e8015
 
@@ -235,4 +235,30 @@ https://dbdiagram.io/d/Vetclinic-67e2eb4175d75cc8446e8015
 - Логическое резервное копирование: Еженедельный экспорт данных с помощью `pg_dump` для дополнительной защиты.
 - Включить архивирование WAL-файлов для возможности восстановления на любой момент времени. Хранить WAL-файлы в облачном хранилище AWS S3.
 
-<h2 id="6">Ограничения и индексы</h2>
+<h2 id="6">Оптимизация базы данных: индексы для поиска</h2>
+> Примечание:
+> B-tree - стандартный выбор для большинства случаев
+> Hash - только для точных совпадений (=)
+> BRIN - для больших таблиц с коррелированными данными
+> GIN - для полнотекстового поиска
+
+| Таблица          | Поля индекса                     | Тип индекса       | SQL скрипт создания                          | Обоснование                                                                 |
+|------------------|----------------------------------|-------------------|----------------------------------------------|-----------------------------------------------------------------------------|
+| `pet_owner`      | `last_name`, `first_name`        | B-tree            | ```sql CREATE INDEX idx_owner_name ON pet_owner(last_name, first_name); ``` | Ускоряет поиск владельцев по ФИО                                           |
+| `pet_owner`      | `phone`                          | Hash              | ```sql CREATE INDEX idx_owner_phone ON pet_owner USING hash(phone); ```     | Быстрый поиск по телефону (UNIQUE уже есть)                                |
+| `pet`            | `name`, `pet_owner_id`           | B-tree            | ```sql CREATE INDEX idx_pet_name_owner ON pet(name, pet_owner_id); ```      | Поиск питомцев по имени в рамках владельца                                |
+| `pet`            | `species`, `breed`               | B-tree            | ```sql CREATE INDEX idx_pet_species_breed ON pet(species, breed); ```       | Фильтрация по виду и породе                                               |
+| `veterinarian`   | `last_name`, `first_name`        | B-tree            | ```sql CREATE INDEX idx_vet_name ON veterinarian(last_name, first_name); ```| Поиск ветеринаров по ФИО                                                  |
+| `appointment`    | `pet_id`, `date`                 | B-tree            | ```sql CREATE INDEX idx_appointment_pet_date ON appointment(pet_id, date); ```| История посещений животного                                              |
+| `appointment`    | `vet_id`, `date`                 | B-tree            | ```sql CREATE INDEX idx_appointment_vet_date ON appointment(vet_id, date); ```| Расписание ветеринара                                                     |
+| `appointment`    | `date`                           | BRIN              | ```sql CREATE INDEX idx_appointment_date_brin ON appointment USING brin(date); ```| Оптимально для диапазонов дат (если много записей)                        |
+| `treatment`      | `appointment_id`, `service_id`   | B-tree            | ```sql CREATE INDEX idx_treatment_app_service ON treatment(appointment_id, service_id); ```| Поиск услуг в рамках приема                                              |
+| `invoice`        | `pet_owner_id`, `date`           | B-tree            | ```sql CREATE INDEX idx_invoice_owner_date ON invoice(pet_owner_id, date); ```| История платежей владельца                                               |
+| `invoice`        | `status_id`, `date`              | B-tree            | ```sql CREATE INDEX idx_invoice_status_date ON invoice(status_id, date); ``` | Поиск счетов по статусу и дате                                           |
+| `medical_record` | `appointment_id`                 | B-tree            | ```sql CREATE INDEX idx_record_appointment ON medical_record(appointment_id); ```| Уже UNIQUE, но можно добавить для явного указания                         |
+| `service`        | `name`, `is_active`              | B-tree            | ```sql CREATE INDEX idx_service_active_name ON service(name) WHERE is_active = true; ```| Поиск только активных услуг                                              |
+
+ **Для текстовых поисков**
+```sql
+CREATE EXTENSION pg_trgm;
+CREATE INDEX idx_medical_record_diagnosis_gin ON medical_record USING gin(diagnosis gin_trgm_ops);
