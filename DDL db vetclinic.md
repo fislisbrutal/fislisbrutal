@@ -18,7 +18,6 @@
 #### Скрипт создания структуры базы данных `vetclinic`
 
 ``` -- Создание схем
-DROP SCHEMA public;
 CREATE SCHEMA clinic_core;
 CREATE SCHEMA clinic_staff;
 CREATE SCHEMA clinic_services;
