@@ -18,7 +18,7 @@
 
 #### Скрипт создания структуры базы данных `vetclinic`
 
-` -- Создание схем
+``` -- Создание схем
 CREATE SCHEMA clinic_core;
 CREATE SCHEMA clinic_staff;
 CREATE SCHEMA clinic_services;
@@ -134,7 +134,7 @@ ALTER TABLE clinic_operations."medical_record" ADD FOREIGN KEY ("appointment_id"
 
 ALTER TABLE clinic_operations."invoice" ADD FOREIGN KEY ("pet_owner_id") REFERENCES clinic_core."pet_owner" ("id");
 ALTER TABLE clinic_operations."invoice" ADD FOREIGN KEY ("record_id") REFERENCES clinic_operations."medical_record" ("id");
-ALTER TABLE clinic_operations."invoice" ADD FOREIGN KEY ("status_id") REFERENCES clinic_operations."status" ("id"); `
+ALTER TABLE clinic_operations."invoice" ADD FOREIGN KEY ("status_id") REFERENCES clinic_operations."status" ("id"); ```
 
 #### Создание структуры базы данных `vetclinic` в pgAdmin
 
