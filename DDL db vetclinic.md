@@ -1,4 +1,3 @@
-# Описание схем данных
 
 > Дефолтная `public` не используется
 
@@ -19,6 +18,7 @@
 #### Скрипт создания структуры базы данных `vetclinic`
 
 ``` -- Создание схем
+DROP SCHEMA public;
 CREATE SCHEMA clinic_core;
 CREATE SCHEMA clinic_staff;
 CREATE SCHEMA clinic_services;
@@ -139,6 +139,80 @@ ALTER TABLE clinic_operations."invoice" ADD FOREIGN KEY ("status_id") REFERENCES
 #### Создание структуры базы данных `vetclinic` в pgAdmin
 
 <img width="1022" alt="image" src="https://github.com/user-attachments/assets/c838e70b-af0b-4bf2-bce3-d45728962410" />
+
+#### Роли для базы данных `vetclinic`
+
+1. `vetclinic_admin` - Администратор базы данных
+
+Описание: Полный доступ ко всем схемам и таблицам, может создавать/изменять/удалять любые объекты.
+Ответственность: Управление структурой БД, настройка прав доступа, резервное копирование.
+
+2. `vetclinic_manager` - Менеджер клиники
+
+Описание: Доступ к данным клиентов, записям и финансовой информации.
+Ответственность: Управление клиентами, просмотр финансовых отчетов, общая аналитика.
+
+3. `vetclinic_vet` - Ветеринар
+
+Описание: Доступ к медицинским данным и записям, но без доступа к финансовой информации.
+Ответственность: Ведение медицинских карт, назначение лечения, просмотр истории болезней.
+
+4. `vetclinic_reception` - Ресепшен
+
+Описание: Доступ к записям клиентов и расписанию, ограниченный доступ к медицинским данным.
+Ответственность: Запись на прием, управление расписанием, первичный ввод данных клиентов.
+
+5. `vetclinic_accountant` - Бухгалтер
+
+Описание: Доступ только к финансовым данным и информации о клиентах (без медицинских данных).
+Ответственность: Выставление счетов, финансовый учет, отчетность.
+
+#### Скрипт создания ролей для базы данных `vetclinic`
+
+```
+-- Создание ролей
+CREATE ROLE vetclinic_admin;
+CREATE ROLE vetclinic_manager;
+CREATE ROLE vetclinic_vet;
+CREATE ROLE vetclinic_reception;
+CREATE ROLE vetclinic_accountant;
+
+-- Назначение прав vetclinic_admin
+GRANT ALL PRIVILEGES ON DATABASE vetclinic TO vetclinic_admin;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA clinic_core, clinic_staff, clinic_services, clinic_operations TO vetclinic_admin;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA clinic_core, clinic_staff, clinic_services, clinic_operations TO vetclinic_admin;
+
+-- Назначение прав vetclinic_manager
+GRANT CONNECT ON DATABASE vetclinic TO vetclinic_manager;
+GRANT USAGE ON SCHEMA clinic_core, clinic_operations TO vetclinic_manager;
+GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA clinic_core TO vetclinic_manager;
+GRANT SELECT ON ALL TABLES IN SCHEMA clinic_operations TO vetclinic_manager;
+GRANT SELECT, INSERT, UPDATE ON clinic_operations.appointment, clinic_operations.invoice TO vetclinic_manager;
+
+-- Назначение прав vetclinic_vet
+GRANT CONNECT ON DATABASE vetclinic TO vetclinic_vet;
+GRANT USAGE ON SCHEMA clinic_core, clinic_operations TO vetclinic_vet;
+GRANT SELECT ON clinic_core.pet_owner, clinic_core.pet TO vetclinic_vet;
+GRANT SELECT, INSERT, UPDATE ON clinic_operations.appointment, clinic_operations.treatment, clinic_operations.medical_record TO vetclinic_vet;
+GRANT SELECT ON clinic_services.service TO vetclinic_vet;
+
+-- Назначение прав vetclinic_reception
+GRANT CONNECT ON DATABASE vetclinic TO vetclinic_reception;
+GRANT USAGE ON SCHEMA clinic_core, clinic_operations TO vetclinic_reception;
+GRANT SELECT, INSERT, UPDATE ON clinic_core.pet_owner, clinic_core.pet TO vetclinic_reception;
+GRANT SELECT, INSERT, UPDATE ON clinic_operations.appointment TO vetclinic_reception;
+GRANT SELECT ON clinic_staff.veterinarian TO vetclinic_reception;
+
+-- Назначение прав vetclinic_accountant
+GRANT CONNECT ON DATABASE vetclinic TO vetclinic_accountant;
+GRANT USAGE ON SCHEMA clinic_core, clinic_operations TO vetclinic_accountant;
+GRANT SELECT ON clinic_core.pet_owner TO vetclinic_accountant;
+GRANT SELECT, INSERT, UPDATE ON clinic_operations.invoice TO vetclinic_accountant;
+```
+#### Создание ролей в базе данных `vetclinic` в pgAdmin
+
+<img width="1020" alt="image" src="https://github.com/user-attachments/assets/017a3abf-e306-49f2-a5d5-a0a0016ba19c" />
+
 
 
 
