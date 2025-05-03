@@ -301,6 +301,10 @@ SELECT veterinarian.first_name as doctorName, veterinarian.last_name as doctorSu
 ```
 <img width="581" alt="image" src="https://github.com/user-attachments/assets/6ec993ae-e4da-40ee-95af-dc2f9277bfc9" />
 
+Итого:
+- LEFT позволяет выбирать данные только из левой таблицы и соответствующие записи из правой таблицы. Результат - 0 записей с правой стороны, если нет совпадения.
+- INNER выбирает данные, которые совпадают в обоих таблицах (и в левой, и в правой)
+
 #### 4. Выборка с выводом информации о добавленных строках
 
 ```
