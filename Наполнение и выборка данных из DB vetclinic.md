@@ -1,5 +1,6 @@
 ## DML Vetclinic
 
+### Наполнение таблиц
 ```
 INSERT INTO clinic_core.pet_owner (id, first_name, last_name, phone, secondary_phone, email, address)
 VALUES 
@@ -121,7 +122,6 @@ INSERT INTO clinic_services.service (id, name, description, cost, valid_to, is_a
 (26, 'Криохирургия и криодеструкция', 'Удаление новообразований с помощью жидкого азота', 5200.00, '2999-12-31', true);
 ```
 ```
--- Заполнение таблицы status
 INSERT INTO clinic_operations.status (id, name, type) VALUES
 (1, 'Запланирован', 'appointment'),
 (2, 'Завершен', 'appointment'),
@@ -130,8 +130,8 @@ INSERT INTO clinic_operations.status (id, name, type) VALUES
 (5, 'Ожидает оплаты', 'invoice'),
 (6, 'Оплачен', 'invoice'),
 (7, 'Отменен', 'invoice');
-
--- Заполнение таблицы appointment (30 записей)
+```
+```
 INSERT INTO clinic_operations.appointment (id, pet_id, vet_id, date, reason, status_id, notes) VALUES
 (1, 1, 4, '2023-01-10 10:00:00', 'Плановый осмотр перед вакцинацией', 2, 'Животное активно, аппетит хороший'),
 (2, 2, 1, '2023-01-11 11:30:00', 'Кашель и вялость', 2, 'Подозрение на бронхит, назначены анализы'),
@@ -163,8 +163,8 @@ INSERT INTO clinic_operations.appointment (id, pet_id, vet_id, date, reason, sta
 (28, 3, 7, '2023-02-06 12:10:00', 'Плановый осмотр', 1, NULL),
 (29, 4, 11, '2023-02-07 15:00:00', 'Коррекция рациона', 1, NULL),
 (30, 5, 16, '2023-02-08 11:35:00', 'Дерматологический осмотр', 1, NULL);
-
--- Заполнение таблицы treatment (40 записей)
+```
+```
 INSERT INTO clinic_operations.treatment (id, appointment_id, service_id, date, description) VALUES
 (1, 1, 19, '2023-01-10', 'Вакцинация от бешенства'),
 (2, 1, 6, '2023-01-10', 'Общий осмотр терапевта'),
@@ -206,8 +206,8 @@ INSERT INTO clinic_operations.treatment (id, appointment_id, service_id, date, d
 (38, 29, 24, '2023-02-07', 'Коррекция рациона рептилии'),
 (39, 30, 12, '2023-02-08', 'Осмотр дерматолога'),
 (40, 30, 18, '2023-02-08', 'Анализ кожи');
-
--- Заполнение таблицы medical_record (30 записей)
+```
+```
 INSERT INTO clinic_operations.medical_record (id, appointment_id, service_id, diagnosis, prescription, notes, created_at) VALUES
 (1, 1, 19, 'Здоров', 'Повторная вакцинация через год', 'Реакция на вакцину в норме', '2023-01-10 10:30:00'),
 (2, 2, 6, 'Бронхит', 'Антибиотики 2 раза в день, витамины', 'Контрольный осмотр через неделю', '2023-01-11 12:00:00'),
@@ -239,8 +239,8 @@ INSERT INTO clinic_operations.medical_record (id, appointment_id, service_id, di
 (28, 28, 23, 'Здоров', 'Плановый осмотр', NULL, '2023-02-06 12:45:00'),
 (29, 29, 24, 'Здоров', 'Коррекция рациона проведена', NULL, '2023-02-07 15:30:00'),
 (30, 30, 12, 'Грибковая инфекция', 'Противогрибковые препараты', 'Обработка кожи 2 раза в день', '2023-02-08 12:20:00');
-
--- Заполнение таблицы invoice (25 записей)
+```
+```
 INSERT INTO clinic_operations.invoice (id, pet_owner_id, record_id, date, amount, status_id) VALUES
 (1, 2, 1, '2023-01-10', 1200.00, 6),
 (2, 3, 2, '2023-01-11', 4700.00, 6),
@@ -267,27 +267,41 @@ INSERT INTO clinic_operations.invoice (id, pet_owner_id, record_id, date, amount
 (23, 9, 23, '2023-02-01', 5800.00, 6),
 (24, 2, 24, '2023-02-02', 3500.00, 6),
 (25, 15, 25, '2023-02-03', 4000.00, 5),
-(26, 1, 26, '2023-02-04', 10700.00, 6),  -- Кардиологическое обследование + УЗИ сердца
-(27, 3, 27, '2023-02-05', 2900.00, 6),   -- УЗИ брюшной полости
-(28, 1, 28, '2023-02-06', 4000.00, 6),   -- Плановый осмотр птицы
-(29, 10, 29, '2023-02-07', 4500.00, 6),  -- Коррекция рациона рептилии
+(26, 1, 26, '2023-02-04', 10700.00, 6),
+(27, 3, 27, '2023-02-05', 2900.00, 6),
+(28, 1, 28, '2023-02-06', 4000.00, 6),
+(29, 10, 29, '2023-02-07', 4500.00, 6),
 (30, 12, 30, '2023-02-08', 5300.00, 6);
 ```
+### Выборка данных
+
+#### 1. Выборка с использованием регулярного выражения
+
+Пояснения: поиск диагнозов содержащих определенные термины
+```
+SELECT medical_record.id, appointment.date, pet.name AS pet_name, medical_record.diagnosis
+FROM clinic_operations.medical_record
+JOIN clinic_operations.appointment ON medical_record.appointment_id = appointment.id
+JOIN clinic_core.pet ON appointment.pet_id = pet.id
+WHERE medical_record.diagnosis ~* '\y(дерматит|инфекция)\y';
+```
+<img width="584" alt="image" src="https://github.com/user-attachments/assets/3b7a5afc-367a-4960-afbe-86dcd7f6e09a" />
+
+#### 2. Выборка с использованием LEFT JOIN
 
 ```
-LEFT JOIN
-
 SELECT pet.name as petName, pet_owner.first_name as ownerName, pet_owner.last_name as ownerSurname from clinic_core.pet LEFT JOIN clinic_core.pet_owner on pet.pet_owner_id = pet_owner.id
 ```
 <img width="587" alt="image" src="https://github.com/user-attachments/assets/24cc701a-e573-45f0-b562-e9b0879078ec" />
 
+#### 3. Выборка с использованием INNER JOIN
 
 ```
-INNER JOIN
-
 SELECT veterinarian.first_name as doctorName, veterinarian.last_name as doctorSurname, specialization.name as specialization from clinic_staff.veterinarian INNER JOIN clinic_staff.specialization on veterinarian.specialization_id = specialization.id  
 ```
 <img width="581" alt="image" src="https://github.com/user-attachments/assets/6ec993ae-e4da-40ee-95af-dc2f9277bfc9" />
+
+#### 4. Выборка с выводом информации о добавленных строках
 
 ```
 INSERT INTO clinic_staff.specialization (id, name)
@@ -297,8 +311,11 @@ RETURNING *;
 ```
 <img width="585" alt="image" src="https://github.com/user-attachments/assets/e1cc7f16-44a0-4968-9d08-d848d1a503c3" />
 
+#### 5. Обновление данных, используя UPDATE FROM
+
+Пояснение - обновление цен на услуги на 15%
+
 ```
--- Обновление цен на услуги на 15%
 UPDATE clinic_services.service
 SET cost = cost * 1.15,
     valid_to = '2999-12-31'
@@ -309,8 +326,11 @@ AND clinic_services.service.is_active = true;
 
 <img width="589" alt="image" src="https://github.com/user-attachments/assets/c6b44119-eafa-4ac6-a109-99212ba1348c" />
 
+#### 6. Удаление данных, используя join с другой таблицей с помощью using
+
+Пояснение - удаление счетов, связанных с медицинскими записями черепах
+
 ```
--- удаляем счета, связанные с медицинскими записями черепах
 DELETE FROM clinic_operations.invoice
 USING clinic_operations.medical_record, clinic_operations.appointment, clinic_core.pet
 WHERE invoice.record_id = medical_record.id
@@ -319,6 +339,21 @@ AND appointment.pet_id = pet.id
 AND pet.species = 'Черепаха';
 ```
 <img width="587" alt="image" src="https://github.com/user-attachments/assets/e6c9269f-db96-46a5-b08c-1f6b49b855f5" />
+
+#### 7. Использование утилиты COPY
+
+Пояснение - экспорт данных о питомцах в CSV файл
+
+```
+
+COPY (SELECT pet.id, pet.name, pet.species, pet.breed, pet_owner.first_name || ' ' || pet_owner.last_name AS ownerName
+      FROM clinic_core.pet
+      JOIN clinic_core.pet_owner ON pet.pet_owner_id = pet_owner.id)
+TO '/tmp/pets_export.csv'
+WITH CSV HEADER;
+```
+<img width="588" alt="image" src="https://github.com/user-attachments/assets/3877cedd-de4d-4b4e-bc75-2bd8bb3315e2" />
+
 
 
 
