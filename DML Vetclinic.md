@@ -296,4 +296,5 @@ VALUES
 RETURNING *;
 ```
 <img width="585" alt="image" src="https://github.com/user-attachments/assets/e1cc7f16-44a0-4968-9d08-d848d1a503c3" />
+.
 
