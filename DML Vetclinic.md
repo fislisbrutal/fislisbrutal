@@ -309,5 +309,17 @@ AND clinic_services.service.is_active = true;
 
 <img width="589" alt="image" src="https://github.com/user-attachments/assets/c6b44119-eafa-4ac6-a109-99212ba1348c" />
 
+```
+-- удаляем счета, связанные с медицинскими записями черепах
+DELETE FROM clinic_operations.invoice
+USING clinic_operations.medical_record, clinic_operations.appointment, clinic_core.pet
+WHERE invoice.record_id = medical_record.id
+AND medical_record.appointment_id = appointment.id
+AND appointment.pet_id = pet.id
+AND pet.species = 'Черепаха';
+```
+<img width="587" alt="image" src="https://github.com/user-attachments/assets/e6c9269f-db96-46a5-b08c-1f6b49b855f5" />
+
+
 
 
