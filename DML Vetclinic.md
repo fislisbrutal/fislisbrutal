@@ -296,5 +296,16 @@ VALUES
 RETURNING *;
 ```
 <img width="585" alt="image" src="https://github.com/user-attachments/assets/e1cc7f16-44a0-4968-9d08-d848d1a503c3" />
-.
+
+```
+-- Обновление диагноза для завершенных приемов без диагноза
+UPDATE clinic_operations.medical_record
+SET diagnosis = 'Требуется повторный осмотр'
+FROM clinic_operations.appointment
+WHERE medical_record.appointment_id = appointment.id
+AND appointment.status_id = 2  -- где 2 = код завершённого статуса
+AND medical_record.diagnosis = 'Нет диагноза';
+```
+<img width="589" alt="image" src="https://github.com/user-attachments/assets/4903ae3d-73e2-44ca-b1bb-43a4ac94e8a5" />
+
 
