@@ -298,14 +298,16 @@ RETURNING *;
 <img width="585" alt="image" src="https://github.com/user-attachments/assets/e1cc7f16-44a0-4968-9d08-d848d1a503c3" />
 
 ```
--- Обновление диагноза для завершенных приемов без диагноза
-UPDATE clinic_operations.medical_record
-SET diagnosis = 'Требуется повторный осмотр'
-FROM clinic_operations.appointment
-WHERE medical_record.appointment_id = appointment.id
-AND appointment.status_id = 2  -- где 2 = код завершённого статуса
-AND medical_record.diagnosis = 'Нет диагноза';
+-- Обновление цен на услуги на 15%
+UPDATE clinic_services.service
+SET cost = cost * 1.15,
+    valid_to = '2999-12-31'
+FROM clinic_operations.treatment
+WHERE clinic_services.service.id = clinic_operations.treatment.service_id
+AND clinic_services.service.is_active = true;
 ```
-<img width="589" alt="image" src="https://github.com/user-attachments/assets/4903ae3d-73e2-44ca-b1bb-43a4ac94e8a5" />
+
+<img width="589" alt="image" src="https://github.com/user-attachments/assets/c6b44119-eafa-4ac6-a109-99212ba1348c" />
+
 
 
