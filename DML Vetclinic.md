@@ -273,3 +273,9 @@ INSERT INTO clinic_operations.invoice (id, pet_owner_id, record_id, date, amount
 (29, 10, 29, '2023-02-07', 4500.00, 6),  -- Коррекция рациона рептилии
 (30, 12, 30, '2023-02-08', 5300.00, 6);
 ```
+
+```
+LEFT JOIN
+
+SELECT pet.name as petName, pet_owner.first_name as ownerName, pet_owner.last_name as ownerSurname from clinic_core.pet LEFT JOIN clinic_core.pet_owner on pet.pet_owner_id = pet_owner.id 
+```
