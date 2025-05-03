@@ -279,3 +279,9 @@ LEFT JOIN
 
 SELECT pet.name as petName, pet_owner.first_name as ownerName, pet_owner.last_name as ownerSurname from clinic_core.pet LEFT JOIN clinic_core.pet_owner on pet.pet_owner_id = pet_owner.id 
 ```
+
+```
+INNER JOIN
+
+SELECT veterinarian.first_name as doctorName, veterinarian.last_name as doctorSurname, specialization.name as specialization from clinic_staff.veterinarian INNER JOIN clinic_staff.specialization on veterinarian.specialization_id = specialization.id  
+```
