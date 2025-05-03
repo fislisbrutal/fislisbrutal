@@ -277,11 +277,17 @@ INSERT INTO clinic_operations.invoice (id, pet_owner_id, record_id, date, amount
 ```
 LEFT JOIN
 
-SELECT pet.name as petName, pet_owner.first_name as ownerName, pet_owner.last_name as ownerSurname from clinic_core.pet LEFT JOIN clinic_core.pet_owner on pet.pet_owner_id = pet_owner.id 
+SELECT pet.name as petName, pet_owner.first_name as ownerName, pet_owner.last_name as ownerSurname from clinic_core.pet LEFT JOIN clinic_core.pet_owner on pet.pet_owner_id = pet_owner.id
+
+<img width="587" alt="image" src="https://github.com/user-attachments/assets/24cc701a-e573-45f0-b562-e9b0879078ec" />
+
 ```
 
 ```
 INNER JOIN
 
-SELECT veterinarian.first_name as doctorName, veterinarian.last_name as doctorSurname, specialization.name as specialization from clinic_staff.veterinarian INNER JOIN clinic_staff.specialization on veterinarian.specialization_id = specialization.id  
+SELECT veterinarian.first_name as doctorName, veterinarian.last_name as doctorSurname, specialization.name as specialization from clinic_staff.veterinarian INNER JOIN clinic_staff.specialization on veterinarian.specialization_id = specialization.id 
+
+<img width="581" alt="image" src="https://github.com/user-attachments/assets/6ec993ae-e4da-40ee-95af-dc2f9277bfc9" />
+ 
 ```
