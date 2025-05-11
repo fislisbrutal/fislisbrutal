@@ -18,5 +18,4 @@
 | `invoice`        | `pet_owner_id`, `date`           | B-tree            | ``` CREATE INDEX idx_invoice_owner_date ON invoice(pet_owner_id, date); ```| История платежей владельца                                               |
 | `invoice`        | `status_id`, `date`              | B-tree            | ``` CREATE INDEX idx_invoice_status_date ON invoice(status_id, date); ``` | Поиск счетов по статусу и дате                                           |
 | `service`        | `name`, `is_active`              | B-tree            | ``` CREATE INDEX idx_service_active_name ON service(name) WHERE is_active = true; ```| Поиск только активных услуг                                              |
-| `medical_record`        | `diagnosis`             | B-tree            | ``` CREATE EXTENSION pg_trgm;``` ```CREATE EXTENSION pg_trgm;
-CREATE INDEX idx_medical_record_diagnosis_gin ON medical_record USING gin(diagnosis gin_trgm_ops);```| Текстовый поиск по диагнозам                                             |
+| `medical_record`        | `diagnosis`             | B-tree            | ``` CREATE EXTENSION pg_trgm;```CREATE INDEX idx_medical_record_diagnosis_gin ON medical_record USING gin(diagnosis gin_trgm_ops);```| Текстовый поиск по диагнозам                                             |
