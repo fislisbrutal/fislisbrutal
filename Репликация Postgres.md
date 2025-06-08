@@ -27,8 +27,17 @@
 
 ### Шаг 1: Запускаем master с логической репликацией
 <img width="1004" alt="image" src="https://github.com/user-attachments/assets/1b238054-abbf-471e-a41c-7b3e86072185" />
-### Шаг 2: Настраиваем репликацию 
-<img width="746" alt="image" src="https://github.com/user-attachments/assets/3f0db008-d364-4661-b5a0-c4b1cefac7c2" />
+### Шаг 2: Настраиваем репликацию и создаем таблицу
+<img width="856" alt="image" src="https://github.com/user-attachments/assets/ea9b685d-6f28-4032-9122-1b64abd4bd76" />
+<img width="850" alt="image" src="https://github.com/user-attachments/assets/b30e91af-c403-4eec-9be7-90cf4006d8af" />
+### Шаг 3: Создание replica и подписки
+<img width="846" alt="image" src="https://github.com/user-attachments/assets/4a5770f5-b332-45c0-9bd1-2337ac94c7f1" />
+### Шаг 4: Вставка в master и проверка в replica
+<img width="856" alt="image" src="https://github.com/user-attachments/assets/9ddff3a6-f83d-432d-b3d2-6586bc81ea55" />
+
+
+
+
 
 
 
