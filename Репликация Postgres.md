@@ -1,4 +1,4 @@
-Создание роли репликатора
+## Физическая репликация
 
 ### Шаг 1: Подготовка master-сервера и настройка репликации
 
@@ -22,6 +22,14 @@
 <img width="832" alt="image" src="https://github.com/user-attachments/assets/f9a8c00e-5c62-4b38-a882-c0a1ea45fc4b" />
 
 <img width="844" alt="image" src="https://github.com/user-attachments/assets/6b164f7c-e330-465a-afce-4c23027eb2cc" />
+
+## Логическая репликация
+
+### Шаг 1: Запускаем master с логической репликацией
+<img width="1004" alt="image" src="https://github.com/user-attachments/assets/1b238054-abbf-471e-a41c-7b3e86072185" />
+
+
+
 
 
 
