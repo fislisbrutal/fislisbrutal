@@ -21,6 +21,7 @@
 ![image](https://github.com/user-attachments/assets/a88dff70-a097-4b0a-bdc4-6d6faa342039)
 
 5. Самые дорогие распроданные товары
+
 [image](https://github.com/user-attachments/assets/9aacce50-6df3-44d7-8fb9-09d8377fe150)
 
 
