@@ -22,7 +22,7 @@
 
 5. Самые дорогие распроданные товары
 
-[image](https://github.com/user-attachments/assets/9aacce50-6df3-44d7-8fb9-09d8377fe150)
+![image](https://github.com/user-attachments/assets/9aacce50-6df3-44d7-8fb9-09d8377fe150)
 
 
 
