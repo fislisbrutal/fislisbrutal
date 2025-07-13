@@ -1,8 +1,24 @@
+> Таблицы:
+> Products — товары с информацией о цене, рейтинге и количестве на складе.
+> Categories — категории товаров.
+> Orders — таблица заказов.
+> OrderDetails — детализация каждого заказа (товары и количество).
+
+### 1. Создаем процедуру
+
+> Процедура проверяет следующие шаги:
+> - Проверка наличия товара на складе (products).
+> - Уменьшение количества товаров на складе.
+> - Создание записи о заказе в отдельной таблице orders.
+> - Добавление деталей заказа в таблицу order_details, связывая заказанный товар с заказом.
+
+<img width="1337" height="926" alt="image" src="https://github.com/user-attachments/assets/7b8818fc-1d12-455d-a897-d00fac804ea0" />
 
 
-<img width="1354" height="925" alt="image" src="https://github.com/user-attachments/assets/03cf9b54-9f10-47ef-bf7e-66c24a3a9c3b" />
+### 2. Вызываем процедуру
 
-<img width="1336" height="932" alt="image" src="https://github.com/user-attachments/assets/431934f3-f14e-438c-9aa1-331a2ae349cd" />
+> Оформляем заказ для конкретного пользователя
 
-<img width="1339" height="925" alt="image" src="https://github.com/user-attachments/assets/556726a9-70dc-43e1-81d6-06aee51b1de6" />
+<img width="1334" height="916" alt="image" src="https://github.com/user-attachments/assets/8c2b824e-bc81-4abf-9bfe-1977f0340490" />
+
 
