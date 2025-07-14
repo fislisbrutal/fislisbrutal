@@ -8,7 +8,7 @@
 
 ## 3. сделать выборку показывающую самый дорогой и самый дешевый товар в каждой категории
 
-<img width="745" height="570" alt="image" src="https://github.com/user-attachments/assets/8c645fc0-1c79-496e-abe9-e6ec22e308ac" />
+<img width="732" height="517" alt="image" src="https://github.com/user-attachments/assets/21b9f74e-8509-4655-be13-c6c1d587196c" />
 
 ## 4. сделать rollup с количеством товаров по категориям
 
