@@ -20,6 +20,8 @@
 > Оформляем заказ для конкретного пользователя
 
 <img width="1334" height="916" alt="image" src="https://github.com/user-attachments/assets/8c2b824e-bc81-4abf-9bfe-1977f0340490" />
+<img width="537" height="213" alt="image" src="https://github.com/user-attachments/assets/aa5ff203-cf0b-4b5c-ac76-c879b98dbf72" />
+
 
 
 ##№ Создадим еще одну процедуру для импорта данных из CSV в таблицу products
