@@ -24,11 +24,13 @@
 
 
 
-##№ Создадим еще одну процедуру для импорта данных из CSV в таблицу products
+### Создадим еще одну процедуру для импорта данных из CSV в таблицу products
 
 <img width="1722" height="890" alt="image" src="https://github.com/user-attachments/assets/a363ebb5-69fe-4932-b61c-ffbb0050579c" />
 <img width="1714" height="930" alt="image" src="https://github.com/user-attachments/assets/550943d9-c271-4c45-a9ad-4d46e9c11202" />
 
+### Загружаем и проверяем данные
 
+<img width="1153" height="770" alt="image" src="https://github.com/user-attachments/assets/477b100d-4ef2-40b1-a255-c5d92d58f9e1" />
 
 
