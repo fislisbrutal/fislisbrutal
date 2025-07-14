@@ -29,8 +29,9 @@
 <img width="1722" height="890" alt="image" src="https://github.com/user-attachments/assets/a363ebb5-69fe-4932-b61c-ffbb0050579c" />
 <img width="1714" height="930" alt="image" src="https://github.com/user-attachments/assets/550943d9-c271-4c45-a9ad-4d46e9c11202" />
 
-### Загружаем и проверяем данные
+### Загружаем данные через процедуры и проверяем 
 
-<img width="1153" height="770" alt="image" src="https://github.com/user-attachments/assets/477b100d-4ef2-40b1-a255-c5d92d58f9e1" />
+<img width="1156" height="760" alt="image" src="https://github.com/user-attachments/assets/dc121638-787b-4637-927e-8e733e7aa24e" />
+
 
 
