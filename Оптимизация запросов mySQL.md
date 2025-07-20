@@ -108,8 +108,6 @@ ORDER BY p.price DESC
 LIMIT 20;
 ```
 
-```
-EXPLAIN                                                                                                                                                                                                                                                        |
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-{¶  "query_block": {¶    "select_id": 1,¶    "cost_info": {¶      "query_cost": "7880.72"¶    },¶    "ordering_operation": {¶      "using_filesort": true,¶      "windowing": {¶        "windows": [¶          {¶            "name": "<unnamed window>",¶      |
-```
+### Добавим гистограмму
+<img width="734" height="630" alt="image" src="https://github.com/user-attachments/assets/61c9adbe-57a1-4179-8546-481d881e8c30" />
+
