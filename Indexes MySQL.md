@@ -10,6 +10,6 @@ ALTER TABLE products
 ADD FULLTEXT INDEX ft_title_category_status (title, category, status);
 ```
 
-### С FULLTEXT-индексом (оптимально) MATCH(...) AGAINST(...) с FULLTEXT индексом на те же поля
+### С FULLTEXT индексом на те же поля
 
 <img width="765" height="638" alt="image" src="https://github.com/user-attachments/assets/d46f615c-1793-49cc-9920-0770319fcdba" />
