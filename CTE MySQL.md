@@ -109,4 +109,39 @@ ORDER BY store_id, month;
 
 <img width="1203" height="785" alt="image" src="https://github.com/user-attachments/assets/3e3e5329-a6b5-483f-aab4-d8ab838cc1be" />
 
+### Выполним запрос, который выведет 7-дневное скользящее среднее за последний месяц по самому плодовитому магазину
+
+```
+WITH top_store AS (
+    SELECT store_id
+    FROM sales
+    GROUP BY store_id
+    ORDER BY COUNT(*) DESC
+    LIMIT 1
+),
+filtered_sales AS (
+    SELECT
+        DATE(date) AS sale_day,
+        SUM(sale_amount) AS daily_total
+    FROM sales
+    WHERE store_id = (SELECT store_id FROM top_store)
+      AND date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+      AND date < DATE_FORMAT(CURDATE(), '%Y-%m-01') + INTERVAL 1 MONTH
+    GROUP BY DATE(date)
+),
+7_by_day AS (
+    SELECT
+        f1.sale_day,
+        (
+            SELECT AVG(f2.daily_total)
+            FROM filtered_sales f2
+            WHERE f2.sale_day BETWEEN f1.sale_day - INTERVAL 6 DAY AND f1.sale_day
+        ) AS rolling_avg_7
+    FROM filtered_sales f1
+)
+SELECT
+    ROUND(AVG(rolling_avg_7), 2) AS final_monthly_rolling_avg_7d
+FROM 7_by_day;
+```
+<img width="1197" height="799" alt="image" src="https://github.com/user-attachments/assets/ba2ba904-f1a2-4199-b07d-a22dc87ccf68" />
 
