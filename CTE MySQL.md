@@ -3,13 +3,11 @@
 ```
 USE sales_db;
 
--- 1. Создаём таблицу магазинов
 CREATE TABLE stores (
     store_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     address VARCHAR(50) NOT NULL
 );
 
--- 2. Создаём таблицу продаж
 CREATE TABLE sales (
     sale_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     store_id BIGINT UNSIGNED NOT NULL,
@@ -18,7 +16,6 @@ CREATE TABLE sales (
     FOREIGN KEY (store_id) REFERENCES stores (store_id)
 );
 
--- 3. Cгенерируем 10 магазинов в таблице stores
 INSERT INTO stores (address)
 SELECT CONCAT('Store Address #', n)
 FROM (
@@ -26,7 +23,7 @@ FROM (
   UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10
 ) AS numbers;
 
--- 4. Сгенерируем 100000 продаж в таблице sales за последние 2 года через процедуру
+-- Сгенерируем 100000 продаж в таблице sales за последние 2 года через процедуру
 DELIMITER $$
 
 CREATE PROCEDURE populate_sales()
@@ -50,7 +47,6 @@ BEGIN
     -- случайная сумма от 5 до 500
     SET amount = ROUND(5 + (RAND() * 495), 2);
 
-    -- вставка
     INSERT INTO sales (store_id, date, sale_amount)
     VALUES (sid, sale_dt, amount);
 
@@ -60,7 +56,6 @@ END$$
 
 DELIMITER ;
 
--- 5. Запускаем процедуру
 CALL populate_sales();
 ```
 
