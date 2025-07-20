@@ -71,43 +71,18 @@ EXPLAIN                                                                         
 ### Создадим индексы
 
 <img width="652" height="198" alt="image" src="https://github.com/user-attachments/assets/cad5897f-1cda-4c52-aab6-e898191749aa" />
-
-### Добавим в запрос окконую функцию
-
-```
-WITH avg_category_price AS (
-  SELECT category, AVG(price) AS avg_price
-  FROM products
-  GROUP BY category
-),
-avg_global_price AS (
-  SELECT AVG(price) AS avg_price FROM products
-),
-rating_counts AS (
-  SELECT rating, COUNT(*) AS rating_count
-  FROM products
-  GROUP BY rating
-)
-SELECT 
-    p.id,
-    p.title,
-    p.category,
-    p.price,
-    p.rating,
-    p.status,
-    p.created_at,
-    ac.avg_price AS avg_price_in_category,
-    rc.rating_count AS same_rating_count,
-    RANK() OVER (PARTITION BY p.category ORDER BY p.price DESC) AS price_rank
-FROM products p
-JOIN avg_category_price ac ON ac.category = p.category
-JOIN rating_counts rc ON rc.rating = p.rating
-JOIN avg_global_price ag ON p.price > ag.avg_price
-WHERE p.status = 'В наличии'
-ORDER BY p.price DESC
-LIMIT 20;
-```
+<img width="1028" height="75" alt="image" src="https://github.com/user-attachments/assets/5ec85e62-290f-4f97-a125-f1162eeeb59c" />
 
 ### Добавим гистограмму
 <img width="734" height="630" alt="image" src="https://github.com/user-attachments/assets/61c9adbe-57a1-4179-8546-481d881e8c30" />
+
+### Проверка
+
+> Цена запроса снизилась почта в два раза - ура!
+
+```
+EXPLAIN                                                                                                                                                                                                                                                        |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+{¶  "query_block": {¶    "select_id": 1,¶    "cost_info": {¶      "query_cost": "12.75"¶    },¶    "ordering_operation": {¶      "using_filesort": true,¶      "table": {¶        "table_name": "p",¶        "access_type": "ref",¶        "possible_keys": [¶ |
+```
 
