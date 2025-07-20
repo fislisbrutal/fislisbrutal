@@ -82,3 +82,31 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql -- Вот наш скрипт
 
 ```
+### Поднимаем контейнер 
+
+<img width="1013" height="596" alt="image" src="https://github.com/user-attachments/assets/8d69e2fe-e7bb-4537-a9ea-b0738b62fe80" />
+
+### Проверяем данные
+
+<img width="1009" height="597" alt="image" src="https://github.com/user-attachments/assets/60ff31a0-90f5-4e84-9eeb-12e6775d9e3f" />
+
+### Выполним запрос, который выведет нарастающий итог продаж по каждому магазину с группировкой по месяцам
+
+```
+SELECT
+    store_id,
+    DATE_FORMAT(date, '%Y-%m') AS month,
+    SUM(sale_amount) AS monthly_sales,
+    SUM(SUM(sale_amount)) OVER (
+        PARTITION BY store_id
+        ORDER BY DATE_FORMAT(date, '%Y-%m')
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS cumulative_sales
+FROM sales
+GROUP BY store_id, month
+ORDER BY store_id, month;
+```
+
+<img width="1203" height="785" alt="image" src="https://github.com/user-attachments/assets/3e3e5329-a6b5-483f-aab4-d8ab838cc1be" />
+
+
