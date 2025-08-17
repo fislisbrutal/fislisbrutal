@@ -27,4 +27,17 @@ START REPLICA;
 ```
 <img width="1381" height="323" alt="image" src="https://github.com/user-attachments/assets/4f62822d-5e7c-42f1-b34a-47edc04fc6e6" />
 
+# Создаем БД t1 на master и делаем dump
+
+<img width="1393" height="333" alt="image" src="https://github.com/user-attachments/assets/7291d111-241e-4854-ac8c-8bce1d05ff49" />
+
+> Вставляем значение в master
+
+<img width="1391" height="364" alt="image" src="https://github.com/user-attachments/assets/7b025d5d-ec8d-41de-b344-0993ea182cb2" />
+
+> Проверяем данные на slave
+
+<img width="1381" height="324" alt="image" src="https://github.com/user-attachments/assets/82f1f3d1-b95c-429f-a900-52308b184355" />
+
+
 
