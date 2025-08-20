@@ -1,4 +1,4 @@
-#Поднимаем три узла по очереди
+### Поднимаем три узла по очереди
 
 ```
 gl.matveev@MAC2443OKKO desktop % docker run -d \
@@ -32,7 +32,7 @@ percona/percona-xtradb-cluster:8.0
 ```
 <img width="989" height="271" alt="image" src="https://github.com/user-attachments/assets/a1099731-c744-4022-b42b-bc299562991c" />
 
-# Создаем БД на первом узле и добавляем данные
+### Создаем БД на первом узле и добавляем данные
 
 ```
 CREATE DATABASE mydb;
