@@ -73,7 +73,12 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 What's next:
     Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug pxc-node1
     Learn more at https://docs.docker.com/go/debug-cli/
-gl.matveev@MAC2443OKKO ~ % >....                                                                      
+gl.matveev@MAC2443OKKO ~ % docker exec -it pxc-node2 mysql -uroot -pqwerty -e 'USE mydb; SHOW TABLES; SELECT COUNT(*) FROM test;'
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
++----------------+
+| Tables_in_mydb |
++----------------+
 | test           |
 +----------------+
 +----------+
@@ -83,6 +88,23 @@ gl.matveev@MAC2443OKKO ~ % >....
 +----------+
 
 What's next:
-    Try Docker Debug for seamless, persistent debugging tools in any container or image �<0086><0092> docker debug pxc-node1
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug pxc-node1
+    Learn more at https://docs.docker.com/go/debug-cli/
+gl.matveev@MAC2443OKKO ~ % docker exec -it pxc-node3 mysql -uroot -pqwerty -e 'USE mydb; SHOW TABLES; SELECT COUNT(*) FROM test;'
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
++----------------+
+| Tables_in_mydb |
++----------------+
+| test           |
++----------------+
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug pxc-node1
     Learn more at https://docs.docker.com/go/debug-cli/
 ```
