@@ -53,3 +53,36 @@ INSERT INTO test(value) VALUES
 
 <img width="847" height="290" alt="image" src="https://github.com/user-attachments/assets/d68462f3-7adb-4f5d-83a8-039f2598aa82" />
 
+### Проверяем на трех узлах
+
+```
+gl.matveev@MAC2443OKKO ~ % docker exec -it pxc-node1 mysql -uroot -pqwerty -e 'USE mydb; SHOW TABLES; SELECT COUNT(*) FROM test;'
+
+mysql: [Warning] Using a password on the command line interface can be insecure.
++----------------+
+| Tables_in_mydb |
++----------------+
+| test           |
++----------------+
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug pxc-node1
+    Learn more at https://docs.docker.com/go/debug-cli/
+gl.matveev@MAC2443OKKO ~ % >....                                                                      
+| test           |
++----------------+
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image �<0086><0092> docker debug pxc-node1
+    Learn more at https://docs.docker.com/go/debug-cli/
+```
